@@ -1,4 +1,4 @@
-# WoTDMailer.py - A script to get the DeutschPerfekt Word of the Day and email
+# WotDMailer.py - A script to get the DeutschPerfekt Word of the Day and email
 # it to a set e-mail address.
 
 from email.message import Message
@@ -8,7 +8,7 @@ import sys
 
 from selenium import webdriver
 
-def scrapeWoTD() -> dict:
+def scrapeWotD() -> dict:
     """Scrape the website for the Word of the Day.
 
     Return a dictionary with the word, word-type, explanation and example
@@ -32,7 +32,7 @@ def sendWotDMessage(WotDMessage: Message) -> None:
 
 def main():
     """Run the scraper, construct, and send the message."""
-    WotDInfo = scrapeWoTD()
+    WotDInfo = scrapeWotD()
     if WotDInfo is None:
         sys.exit(0)
     WotDMessage = constructMessage(WotDInfo)
