@@ -26,3 +26,6 @@ class TestWotDMailer(unittest.TestCase):
 
     def test_sendWotDMessage(self):
         pass
+
+if __name__ == '__main__':
+    unittest.main()
