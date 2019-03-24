@@ -56,6 +56,7 @@ def constructMessage(WotDInfo: dict) -> EmailMessage:
     Wortart: {WotDInfo['type']}
     Erklärung: {WotDInfo['explanation']}
     Beispielsatz: {WotDInfo['example']}"""
+    message.set_content(message_body)
 
     return message
 
