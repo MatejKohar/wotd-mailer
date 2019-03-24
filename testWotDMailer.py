@@ -18,7 +18,7 @@ class TestWotDMailer(unittest.TestCase):
                            }
         results = wotd_mailer.scrapeWotD()
         for key, value in correct_answers.items():
-            with self.subtest(key = key):
+            with self.subTest(key = key):
                 self.assertEqual(value, results.get(key))
 
     def test_constructMessage(self):
