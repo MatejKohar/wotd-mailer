@@ -48,8 +48,8 @@ def constructMessage(WotDInfo: dict) -> EmailMessage:
     Fill in the sender and receiver information as well as the email body.
     """
     message = EmailMessage()
-    message['From'] = os.environ.GMAIL_ADDRESS
-    message['To'] = os.environ.GMAIL_ADDRESS
+    message['From'] = os.environ['GMAIL_ADDRESS']
+    message['To'] = os.environ['GMAIL_ADDRESS']
     message['Subject'] = 'Wort des Tages'
     message_body = f"""\
     Wort: {WotDInfo[word]}
