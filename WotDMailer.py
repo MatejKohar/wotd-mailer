@@ -7,6 +7,10 @@ import smtplib
 import sys
 
 from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 def scrapeWotD() -> dict:
     """Scrape the website for the Word of the Day.
@@ -14,7 +18,27 @@ def scrapeWotD() -> dict:
     Return a dictionary with the word, word-type, explanation and example
     sentence. Return None if scraping fails.
     """
-    return None
+    results = {}
+    browser = webdriver.Firefox()
+    browser.get('https://www.deutsch-perfekt.com/')
+    # wait till the wotd section has loaded
+    try:
+        header = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'wotd-header')))
+        info = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'wotd-info')))
+    except TimeoutException:
+        return None
+
+    word = header.find_element_by_tag_name('div')
+    type = header.find_element_by_tag_name('small')
+    explanation = info.find_element_by_xpath('./div[1]/p')
+    example = info.find_element_by_xpath('./div[last()]/p')
+
+    results = {'word': word.text,
+               'type': type.text,
+               'explanation': explanation.text,
+               'example': example.text
+               }
+    return results
 
 def constructMessage(WotDInfo: dict) -> Message:
     """Return an email.Message from the *WotDInfo*\ .
