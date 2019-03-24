@@ -40,14 +40,14 @@ def scrapeWotD() -> dict:
                }
     return results
 
-def constructMessage(WotDInfo: dict) -> Message:
+def constructMessage(WotDInfo: dict) -> EmailMessage:
     """Return an email.Message from the *WotDInfo*\ .
 
     Fill in the sender and receiver information as well as the email body.
     """
     pass
 
-def sendWotDMessage(WotDMessage: Message) -> None:
+def sendWotDMessage(WotDMessage: EmailMessage) -> None:
     """Send the *WotDMessage* via GMail.
 
     Connect to the GMail SMTP server, authenticate, and send the *WotDMessage*\ .
