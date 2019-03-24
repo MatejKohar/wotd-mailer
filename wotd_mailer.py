@@ -52,10 +52,10 @@ def constructMessage(WotDInfo: dict) -> EmailMessage:
     message['To'] = os.environ['GMAIL_ADDRESS']
     message['Subject'] = 'Wort des Tages'
     message_body = f"""\
-    Wort: {WotDInfo[word]}
-    Wortart: {WotDInfo[type]}
-    Erklärung: {WotDInfo[explanation]}
-    Beispielsatz: {WotDInfo[example]}"""
+    Wort: {WotDInfo['word']}
+    Wortart: {WotDInfo['type']}
+    Erklärung: {WotDInfo['explanation']}
+    Beispielsatz: {WotDInfo['example']}"""
 
     return message
 
