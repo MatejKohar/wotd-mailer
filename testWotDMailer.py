@@ -36,7 +36,7 @@ class TestWotDMailer(unittest.TestCase):
         self.assertIn('Reiseunterlagen', message_body)
         self.assertIn('Nomen', message_body)
         self.assertIn('Dokumente', message_body)
-        self.assertIn('eigepackt', message_body)
+        self.assertIn('eingepackt', message_body)
 
     def test_sendWotDMessage(self):
         pass
