@@ -1,4 +1,3 @@
-import email
 import smtplib
 import unittest
 
