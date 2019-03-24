@@ -26,6 +26,7 @@ def scrapeWotD() -> dict:
         header = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'wotd-header')))
         info = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'wotd-info')))
     except TimeoutException:
+        browser.quit()
         return None
 
     word = header.find_element_by_tag_name('div')
@@ -38,6 +39,7 @@ def scrapeWotD() -> dict:
                'explanation': explanation.text,
                'example': example.text
                }
+    browser.quit()
     return results
 
 def constructMessage(WotDInfo: dict) -> EmailMessage:
