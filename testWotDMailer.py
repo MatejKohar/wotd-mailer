@@ -2,8 +2,6 @@ import email
 import smtplib
 import unittest
 
-from selenium import webdriver
-
 import WotDMailer
 
 
