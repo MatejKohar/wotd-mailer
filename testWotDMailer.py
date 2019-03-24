@@ -2,7 +2,7 @@ import email
 import smtplib
 import unittest
 
-import WotDMailer
+import wotd_mailer
 
 
 class TestWotDMailer(unittest.TestCase):
@@ -16,7 +16,7 @@ class TestWotDMailer(unittest.TestCase):
                            'explanation': 'Dokumente für eine Reise (z. B. Hotelreservierung, Informationen)',
                            'example': 'Hast du schon die Reiseunterlagen eingepackt?'
                            }
-        results = WotDMailer.scrapeWotD()
+        results = wotd_mailer.scrapeWotD()
         for key, value in correct_answers.items():
             with self.subtest(key = key):
                 self.assertEqual(value, results.get(key))
