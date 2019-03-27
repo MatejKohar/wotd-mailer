@@ -1,5 +1,4 @@
 import os
-import smtplib
 import unittest
 
 import wotd_mailer
@@ -7,7 +6,6 @@ import wotd_mailer
 
 class TestWotDMailer(unittest.TestCase):
 
-    @unittest.skip('Testing the message constructor now')
     def test_scrapeWotD(self):
         """Test the scraping function of the WotDMailer script."""
         # Populate correct_answers with the daily Deutsch Perfekt content for
@@ -38,8 +36,6 @@ class TestWotDMailer(unittest.TestCase):
         self.assertIn('Dokumente', message_body)
         self.assertIn('eingepackt', message_body)
 
-    def test_sendWotDMessage(self):
-        pass
 
 if __name__ == '__main__':
     unittest.main()
