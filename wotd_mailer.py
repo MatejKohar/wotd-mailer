@@ -51,8 +51,12 @@ def constructMessage(WotDInfo: dict) -> EmailMessage:
     """
     theDate = date.today()
     message = EmailMessage()
-    message['From'] = os.environ['GMAIL_ADDRESS']
-    message['To'] = os.environ['GMAIL_ADDRESS']
+    try:
+        message['From'] = os.environ['GMAIL_ADDRESS']
+        message['To'] = os.environ['GMAIL_ADDRESS']
+    except KeyError:
+        print("Set $GMAIL_ADDRESS environment variable to use this script.")
+        return None
     message['Subject'] = f'Wort des Tages {theDate.strftime("%d.%m.%Y")}'
     message_body = f"""\
     Wort: {WotDInfo['word']}
@@ -70,7 +74,18 @@ def sendWotDMessage(WotDMessage: EmailMessage) -> None:
     Password must be stored in the $GMAIL_PASSWD environment variable.
     """
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-        smtp.login(os.environ['GMAIL_ADDRESS'], os.environ['GMAIL_PASSWD'])
+        try:
+            smtp.login(os.environ['GMAIL_ADDRESS'], os.environ['GMAIL_PASSWD'])
+        except smtplib.SMTPAuthenticationError:
+            print('Wrong password. Reset your $GMAIL_PASSWD environment',
+                  'variable to the correct password.'
+                  )
+            return
+        except KeyError:
+            # If we got this far, it must be the password missing.
+            print('Set $GMAIL_ADDRESS environment variable to use this script.')
+            return
+
         smtp.send_message(WotDMessage)
 
 def main():
