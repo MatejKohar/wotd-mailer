@@ -1,6 +1,6 @@
 # wotd_mailer.py - A script to get the DeutschPerfekt Word of the Day and email
 # it to a set e-mail address.
-
+from datetime import date
 from email.message import EmailMessage
 import os
 import smtplib
@@ -47,10 +47,11 @@ def constructMessage(WotDInfo: dict) -> EmailMessage:
 
     Fill in the sender and receiver information as well as the email body.
     """
+    theDate = date.today()
     message = EmailMessage()
     message['From'] = os.environ['GMAIL_ADDRESS']
     message['To'] = os.environ['GMAIL_ADDRESS']
-    message['Subject'] = 'Wort des Tages'
+    message['Subject'] = f'Wort des Tages {theDate.strftime("%d.%m%Y")}'
     message_body = f"""\
     Wort: {WotDInfo['word']}
     Wortart: {WotDInfo['type']}

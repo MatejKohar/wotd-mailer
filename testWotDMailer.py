@@ -31,7 +31,7 @@ class TestWotDMailer(unittest.TestCase):
         message = wotd_mailer.constructMessage(scraped_data)
         self.assertEqual(os.environ['GMAIL_ADDRESS'], message['From'])
         self.assertEqual(os.environ['GMAIL_ADDRESS'], message['To'])
-        self.assertEqual('Wort des Tages', message['Subject'])
+        self.assertEqual('Wort des Tages 27.03.2019', message['Subject'])
         message_body = message.get_content()
         self.assertIn('Reiseunterlagen', message_body)
         self.assertIn('Nomen', message_body)
