@@ -1,5 +1,5 @@
 # wotd_mailer.py - A script to get the DeutschPerfekt Word of the Day and email
-# it to a set e-mail address.
+# it to yourself through GMail.
 from datetime import date
 from email.message import EmailMessage
 import os
@@ -13,7 +13,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 def scrapeWotD() -> dict:
-    """Scrape the website for the Word of the Day.
+    """Scrape the DeutschPerfect website for the Word of the Day.
 
     Return a dictionary with the word, word-type, explanation and example
     sentence. Return None if scraping fails.
@@ -43,9 +43,11 @@ def scrapeWotD() -> dict:
     return results
 
 def constructMessage(WotDInfo: dict) -> EmailMessage:
-    """Return an email.Message from the *WotDInfo*\ .
+    """Return an email.EmailMessage from the *WotDInfo*\ .
 
     Fill in the sender and receiver information as well as the email body.
+    The email address to be used must be stored in the environment variable
+    $GMAIL_ADDRESS
     """
     theDate = date.today()
     message = EmailMessage()
@@ -65,6 +67,7 @@ def sendWotDMessage(WotDMessage: EmailMessage) -> None:
     """Send the *WotDMessage* via GMail.
 
     Connect to the GMail SMTP server, authenticate, and send the *WotDMessage*\ .
+    Password must be stored in the $GMAIL_PASSWD environment variable.
     """
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
         smtp.login(os.environ['GMAIL_ADDRESS'], os.environ['GMAIL_PASSWD'])
