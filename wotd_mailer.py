@@ -66,7 +66,9 @@ def sendWotDMessage(WotDMessage: EmailMessage) -> None:
 
     Connect to the GMail SMTP server, authenticate, and send the *WotDMessage*\ .
     """
-    return None
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+        smtp.login(os.environ['GMAIL_ADDRESS'], os.environ['GMAIL_PASSWD'])
+        smtp.send_message(WotDMessage)
 
 def main():
     """Run the scraper, construct, and send the message."""
